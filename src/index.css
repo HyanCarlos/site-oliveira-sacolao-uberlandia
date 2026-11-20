@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-oliveira-green: #0E6B38;
+  --color-oliveira-green-dark: #094A26;
+  --color-oliveira-red: #B91C1C;
+  --color-oliveira-gold: #FACC15;
+  --color-oliveira-ink: #0C1B12;
+  --color-oliveira-cream: #FAF7F0;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    overflow-x: clip;
+    background-color: #ffffff;
+    color: #0C1B12;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+.glass-capsule {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.glass-capsule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 65%
+  );
+  transform: translateX(-140%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.glass-capsule:hover::after,
+.glass-capsule:focus-visible::after {
+  transform: translateX(140%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-capsule::after {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
